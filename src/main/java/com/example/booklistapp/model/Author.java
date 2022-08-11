@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 
-//Javax persistence?
+//Javax
 //Auditing Entity is from spring data
 @EntityListeners(AuditingEntityListener.class)
 @Entity

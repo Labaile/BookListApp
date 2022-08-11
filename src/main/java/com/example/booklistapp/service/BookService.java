@@ -55,13 +55,11 @@ public class BookService {
                 genre.setName(genreName);
                 genre.getBookSet().add(finalBook);
                 genreRepository.save(genre);
+            }else {
+                genre.getBookSet().add(finalBook);
             }
             genreSet.add(genre);
-        }else {
-            genre.getBookSet().add(finalBook);
-        }
-        genreSet.add(genre);
-    }
+    });
 
         try{
             book = bookRepository.save(book);

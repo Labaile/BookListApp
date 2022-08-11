@@ -52,5 +52,17 @@ import java.util.Set;
         @OnDelete(action = OnDeleteAction.CASCADE)
         private Author author;
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", pages=" + pages +
+                ", published=" + published +
+                ", readingSet=" + readingSet +
+                ", genreSet=" + genreSet +
+                ", author=" + author +
+                '}';
     }
+}
 

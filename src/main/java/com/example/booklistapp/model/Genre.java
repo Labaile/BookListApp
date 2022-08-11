@@ -1,6 +1,7 @@
 package com.example.booklistapp.model;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -35,6 +36,7 @@ public class Genre {
     private String name;
 
     @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinTable(
             name = "Genre_Books",
             joinColumns = {@JoinColumn(name = "genre_id")},

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 
-//Javax persistence
+//Javax
 // Added Auditing Entity from spring data
 @EntityListeners(AuditingEntityListener.class)
 @Entity
