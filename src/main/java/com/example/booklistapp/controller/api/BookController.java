@@ -6,6 +6,7 @@ import com.example.booklistapp.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -13,8 +14,8 @@ public class BookController {
     BookService bookService;
 
     @GetMapping
-    public String getTest(){
-        return "books";
+    public List<BookDTO> getBooks(){
+        return bookService.getBooks();
     }
 
     @PostMapping
