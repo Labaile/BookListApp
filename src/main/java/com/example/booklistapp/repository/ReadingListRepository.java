@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ReadingListRepository extends JpaRepository<ReadingList, Integer> {
+public interface ReadingListRepository extends JpaRepository<ReadingList, Long> {
 
 }
