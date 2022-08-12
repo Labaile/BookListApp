@@ -1,6 +1,7 @@
 package com.example.booklistapp.controller.api;
 
 import com.example.booklistapp.dto.BookDTO;
+import com.example.booklistapp.dto.BookListDTO;
 import com.example.booklistapp.dto.CreateBookDTO;
 import com.example.booklistapp.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class BookController {
         return bookService.createBook(bookDTO);
     }
 
+    @GetMapping("/title/{title}")
+    public List<BookListDTO> getBooksByTitle(@PathVariable("title") String title){
+        System.out.println(title);
+        return bookService.getBooksByTitle(title);
+    }
 
 }

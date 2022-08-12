@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -28,9 +28,12 @@ public class ReadingList {
     private String name;
 
     @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
 
     @ManyToMany
     @JoinTable(

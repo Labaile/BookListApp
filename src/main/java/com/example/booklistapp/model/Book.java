@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -49,7 +49,7 @@ import java.util.Set;
 
         @ManyToOne
         @JoinColumn(name = "author_id")
-        @OnDelete(action = OnDeleteAction.CASCADE)
+        //@OnDelete(action = OnDeleteAction.CASCADE)
         private Author author;
 
     @Override

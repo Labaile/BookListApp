@@ -2,6 +2,7 @@ package com.example.booklistapp.service;
 
 import com.example.booklistapp.dto.BookDTO;
 import com.example.booklistapp.dto.CreateBookDTO;
+import com.example.booklistapp.dto.BookListDTO;
 import com.example.booklistapp.model.Author;
 import com.example.booklistapp.model.Book;
 import com.example.booklistapp.model.Genre;
@@ -34,6 +35,9 @@ public class BookService {
         Book book = bookRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not Found"));
         book.getGenreSet().forEach(genre -> {
             genre.getBookSet().remove(book);
+        });
+        book.getReadingSet().forEach(readingList -> {
+            readingList.getBookSet().remove(book);
         });
         bookRepository.deleteById(id);
     }
@@ -86,6 +90,19 @@ public class BookService {
         return resBookDTO;
     }
 
+    //get book by title
+    public List<BookListDTO> getBooksByTitle(String title){
+        List<BookListDTO> books = bookRepository.findByTitle(title).stream().map(b -> {
+            return mapper.map(b, BookListDTO.class);
+        }).toList();
+
+        if(books.size()==0){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No books found");
+        }
+        return books;
+    }
+
+
     public BookDTO getBook(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not Found"));
         BookDTO bookDTO = mapper.map(book, BookDTO.class);
@@ -108,7 +125,7 @@ public class BookService {
     }
 
     public BookDTO createBook(CreateBookDTO bookDTO) {
-        //If the Book already "exits" throw an error
+        //If the Book already "exists" throw an error
         if (bookRepository.findByTitleAndPagesAndAuthor(
                 bookDTO.getTitle(),
                 bookDTO.getPages(),
@@ -129,21 +146,21 @@ public class BookService {
         }
         book.setAuthor(author);
 
-        //Settings Genres
+        //Sets the Genres
         Set<Genre> genreSet = book.getGenreSet();
         Book finalBook = book;
 
-        //Foreach genre the book belongs to
+        //For each genre the book belongs to
         bookDTO.getGenre().forEach(genreName -> {
             Genre genre = genreRepository.findByName(genreName);
             if (genre == null) {
-                //if the genre doesn't exist, create it.
+                //if the genre doesn't exist, create a new book
                 genre = new Genre();
                 genre.setName(genreName);
                 genre.getBookSet().add(finalBook);
                 genreRepository.save(genre);
             } else {
-                //if the genre exits, update it with the new book
+                //if the genre exists, update it with the new book
                 genre.getBookSet().add(finalBook);
             }
             genreSet.add(genre);
