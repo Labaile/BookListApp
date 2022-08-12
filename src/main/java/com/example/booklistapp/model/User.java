@@ -26,7 +26,7 @@ public class User {
 
     @NotNull
     @NotBlank
-    private String name;
+    private String username;
 
     @NotNull
     @NotBlank
@@ -36,7 +36,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
